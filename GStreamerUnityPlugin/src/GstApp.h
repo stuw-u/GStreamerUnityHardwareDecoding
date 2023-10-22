@@ -7,6 +7,7 @@ namespace WRL = Microsoft::WRL; // for ComPtr
 #include "../includes/IUnityGraphicsD3D11.h"
 #include <memory>
 
+// A singleton wrapper to the UnityInterface
 class GstApp {
 protected:
 	WRL::ComPtr<ID3D11Device> _d3d11_device;

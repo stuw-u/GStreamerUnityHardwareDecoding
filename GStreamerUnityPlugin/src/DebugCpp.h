@@ -6,6 +6,7 @@
 #include <sstream>
 #include <mutex>
 
+// An utility to feed back logs to unity.
 class Debug
 {
 public:

@@ -24,8 +24,6 @@ UnityExport void ClearDebugLog () {
 	Debug::ClearDebugLog();
 }
 
-
-
 UnityExport void* CreatePipeline(u32 id, u32 width, u32 height, char* uri) {
 	return new GstAppPipeline(id, GstApp::_gstApp.get(), width, height, uri);
 }

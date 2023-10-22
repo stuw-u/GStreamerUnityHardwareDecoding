@@ -4,14 +4,15 @@
 #include <gst/gst.h>
 #include <d3d11.h>
 
+// Manages a single UDP DX11 pipeline.
 class GstAppPipeline
 {
 private:
 	u32 id;
 	const GstApp* app;
-	GstElement* pipeline;
-	ID3D11Texture2D* texture;
-	HANDLE sharedHandle;
+	GstElement* pipeline;			// The Gst pipeline ref. Required to dispose of the pipeline.
+	ID3D11Texture2D* texture;		// The target texture GStreamer will draw to. Doesn't need to be the same res as the stream.
+	HANDLE sharedHandle;			// SharedHandle required for GStreamer to draw on our texture from a different device.
 	GThread* pipelineLoopThread;
 	u32 textureWidth;
 	u32 textureHeight;
