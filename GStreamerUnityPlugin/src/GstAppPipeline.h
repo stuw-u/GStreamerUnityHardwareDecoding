@@ -16,6 +16,8 @@ private:
 	GThread* pipelineLoopThread;
 	u32 textureWidth;
 	u32 textureHeight;
+	GstBus* bus;
+	u32 busWatchId;
 
 public:
 	GMainLoop* mainLoop;

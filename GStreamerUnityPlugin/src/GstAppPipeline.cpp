@@ -29,6 +29,35 @@ gpointer GstMainLoopFunction (gpointer data)
 	return NULL;
 }
 
+static gboolean bus_call(GstBus* bus, GstMessage* msg, gpointer data)
+{
+	switch (GST_MESSAGE_TYPE(msg)) {
+
+	case GST_MESSAGE_EOS:
+		Debug::Log("End of stream\n");
+		return false;
+
+	case GST_MESSAGE_ERROR: {
+		gchar* debug;
+		GError* error;
+
+		gst_message_parse_error(msg, &error, &debug);
+		g_free(debug);
+
+		Debug::LogNoNewLine("Error:");
+		Debug::Log(error->message);
+		g_error_free(error);
+		return false;
+	}
+	default:
+		Debug::LogNoNewLine("Received message of type:");
+		Debug::Log(GST_MESSAGE_TYPE_NAME(msg));
+		break;
+	}
+
+	return true;
+}
+
 
 // Callback from GStreamer when it's ready to draw on our shared ID3D11Texture.
 static GstFlowReturn OnBeginDraw (GstElement* videosink, gpointer data)
@@ -85,6 +114,11 @@ GstAppPipeline::GstAppPipeline(u32 pipelineID, const GstApp* gstApp, u32 width, 
 		gst_object_unref(pipeline);
 		return;
 	}
+
+	bus = gst_pipeline_get_bus(GST_PIPELINE(pipeline));
+	busWatchId = gst_bus_add_watch(bus, bus_call, nullptr);
+	gst_object_unref(bus);
+
 
 	// Launch the pipeline
 	auto state = gst_element_set_state(pipeline, GstState::GST_STATE_PLAYING);

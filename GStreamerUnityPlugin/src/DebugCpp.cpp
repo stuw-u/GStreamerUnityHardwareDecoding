@@ -33,6 +33,13 @@ void Debug::Log(const int message) {
     debugInst->debugLock.unlock();
 }
 
+void Debug::Log(const unsigned int message) {
+    debugInst->debugLock.lock();
+    debugInst->ss << message;
+    debugInst->ss << std::endl;
+    debugInst->debugLock.unlock();
+}
+
 void Debug::Log(const char message) {
     debugInst->debugLock.lock();
     debugInst->ss << message;

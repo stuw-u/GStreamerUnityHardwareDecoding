@@ -14,6 +14,7 @@ public:
     static void Log(const char* message);
     static void Log(const std::string message);
     static void Log(const int message);
+    static void Log(const unsigned int message);
     static void Log(const char message);
     static void Log(const float message);
     static void Log(const double message);
