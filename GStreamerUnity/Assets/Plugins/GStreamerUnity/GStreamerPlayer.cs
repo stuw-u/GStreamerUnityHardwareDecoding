@@ -14,7 +14,7 @@ namespace GStreamerUnity
         bool createdMaterial;
         GStreamerPipeline pipeline;
 
-        private void Start ()
+        private void OnEnable ()
         {
             pipeline = GStreamerPipeline.Create(width, height, "udp://" + udpUri);
             pipeline.CreateTexture();
@@ -31,7 +31,7 @@ namespace GStreamerUnity
             }
         }
 
-        private void OnDestroy ()
+        private void OnDisable ()
         {
             pipeline.Dispose();
         }

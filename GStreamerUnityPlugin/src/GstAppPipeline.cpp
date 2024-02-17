@@ -137,12 +137,22 @@ GstAppPipeline::GstAppPipeline(u32 pipelineID, const GstApp* gstApp, u32 width, 
 
 
 GstAppPipeline::~GstAppPipeline() {
-	g_main_loop_quit(mainLoop);
-	mainLoop = nullptr;
-	g_thread_join(pipelineLoopThread);
-	pipelineLoopThread = nullptr;
-	gst_element_set_state(pipeline, GstState::GST_STATE_NULL);
-	gst_object_unref(pipeline);
+	if (mainLoop != nullptr) {
+		g_main_loop_quit(mainLoop);
+		mainLoop = nullptr;
+	}
+	else {
+		return;
+	}
+	if (pipelineLoopThread != nullptr) {
+		g_thread_join(pipelineLoopThread);
+		pipelineLoopThread = nullptr;
+	}
+	if (pipeline != nullptr) {
+		gst_element_set_state(pipeline, GstState::GST_STATE_NULL);
+		gst_object_unref(pipeline);
+		pipeline = nullptr;
+	}
 }
 
 

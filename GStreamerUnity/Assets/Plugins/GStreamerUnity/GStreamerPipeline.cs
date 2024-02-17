@@ -13,6 +13,9 @@ namespace GStreamerUnity
         static uint _totalId;
         Texture2D texture;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void Init () { _totalId = 0; }
+
         private GStreamerPipeline() { }
 
         public static GStreamerPipeline Create (uint width, uint height, string uri)
