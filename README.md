@@ -6,6 +6,7 @@ Decode UDP video streams using hardware decoding with DX11, using a native plugi
 2. Setup Path Variables for gstreamer: Windows start icon > Search "environment variables" > Edit the system environment variables > Environment Variables > System variables > Variable :Path > Edit > New > Paste "C:\gstreamer\1.0\msvc_x86_64\bin" > Ok
 3. This project was made on Unity 2023.2, but any version after 2020 should be supported. You don't need to include the visual studio in this project, everything you need is in the UnityProject/Plugin folder
 4. Add a GStreamerSingleton in the scene and a GStreamerVideoPlayer. The video resolution doesn't matter.
+5. You have to play around with the firewall settings to let the UPD packages throught! Google "allow UPD packets inbound in control panel".
 
 ## Setup (Compiling the plugin)
 1. Install the MSVC development installer from the same link and version you downloaded the runtime installer.
